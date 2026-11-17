@@ -1,6 +1,18 @@
 # Delivery Drone Route Planner
 
-A two-layer AI system for autonomous drone delivery routing on a discretized city grid.
+A two-layer planner for autonomous delivery drones on a city grid: **A\* search** finds each route, and a **Q-learning agent** decides which delivery to attempt next and when to recharge.
+
+![Benchmark results: Q-learning, greedy and random policies across three difficulty tiers](results.png)
+
+## At a glance
+
+- **What it does:** flies a simulated drone through a grid with obstacles, no-fly zones, wind-driven battery drain and moving hazards, delivering as many packages as it can before the battery runs out.
+- **How it works:** A\* (with dynamic replanning) handles pathfinding; an MDP solved with tabular Q-learning handles dispatch, recharging and re-routing.
+- **How it was tested:** 100 seeded scenarios across three difficulty tiers, against greedy nearest-neighbour and random baselines.
+- **What I found:** the learned policy matches greedy on easy scenarios (84% vs 83% of deliveries completed) and beats random everywhere. On larger grids greedy wins (68% vs 55% on medium, 66% vs 16% on hard), because a tabular Q-table can't cover a state space that grows that fast.
+- **Also here:** an interactive Streamlit front end (`app.py`), a written report (`report.tex`) and a slide deck (`presentation.pptx`).
+
+Built with Python, NumPy, Pygame and Streamlit.
 
 ---
 

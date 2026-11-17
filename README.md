@@ -338,7 +338,7 @@ Key observations:
 
 ### Phase 3 (MDP + Q-Learning + Integration + Benchmarking) — `mdp.py`, `qlearning.py`, `integrate.py`, `benchmark.py`
 
-Built by **Neel**. Design decisions:
+Design decisions:
 
 - **Sparse Q-table via `defaultdict`** — unvisited `(state, action)` pairs default to Q=0. For tabular Q-learning, this gives O(1) lookup and only occupies memory for states actually visited during training.
 - **Episode seed variation** — each training episode uses `seed = base_seed + episode`, so the agent trains on varied city layouts. This is critical for the Q-table to generalise beyond a single fixed map.
@@ -348,7 +348,7 @@ Built by **Neel**. Design decisions:
 
 ### Phase 2 (Simulation + Baselines) — `simulator.py`, `baselines.py`
 
-Built by **Lawrence**. Design decisions:
+Design decisions:
 
 - **Single seeded RNG per episode** — all randomness (wind, placement, obstacle movement) flows from one `np.random.default_rng(seed)`.  The obstacle-movement RNG is forked separately so placement and dynamics don't interfere with each other.
 - **Wind as a numpy 2-D array** — `wind_map[r][c]` is the factor at destination cell `(r,c)`, directly compatible with `astar._wind_factor()` without any conversion.
@@ -358,7 +358,7 @@ Built by **Lawrence**. Design decisions:
 
 ### Phase 1 (A\* + Dynamic Replanning) — `astar.py`
 
-Built by **Srikar**. Design decisions:
+Design decisions:
 
 - **8-directional movement** gives the drone realistic freedom of motion; diagonal moves cost √2 vs. 1.0 for cardinal steps.
 - **Tie-breaking** in the priority queue (monotone counter) prevents heap instability when multiple nodes share the same `f` value.
@@ -458,13 +458,3 @@ Install all with:
 ```bash
 pip install numpy pandas matplotlib pygame pytest streamlit
 ```
-
----
-
-## Team
-
-| Phase | Owner | Module |
-|-------|-------|--------|
-| 1 — A\* Pathfinder | Srikar | `astar.py` |
-| 2 — Simulation + Baselines | Lawrence | `simulator.py`, `baselines.py` |
-| 3 — MDP + Q-Learning + Benchmarking | Neel | `mdp.py`, `qlearning.py`, `integrate.py`, `benchmark.py` |
